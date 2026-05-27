@@ -1,13 +1,31 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../stores/authStore'
 
 // 会員登録ページ
 const Register = () => {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState({ email: '', password: '', nickname: '', gender: '', age: '', prefecture: '' })
+  const { register, isLoading, error, clearError, token } = useAuthStore()
+  const navigate = useNavigate()
+
+  // すでにログイン済みならマイページへ
+  useEffect(() => {
+    if (token) navigate('/mypage', { replace: true })
+  }, [token, navigate])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+    clearError()
+  }
+
+  const handleSubmit = async () => {
+    try {
+      await register(form)
+      navigate('/mypage')
+    } catch {
+      // エラーはストアで管理
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -46,7 +64,7 @@ const Register = () => {
           <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '14px', marginTop: '8px', letterSpacing: '0.05em' }}>無料会員登録</p>
         </div>
 
-        {/* ステップ */}
+        {/* ステップインジケーター */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '32px' }}>
           {[1, 2].map((s) => (
             <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -58,7 +76,14 @@ const Register = () => {
 
         <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '40px' }}>
 
-          {/* ステップ1 */}
+          {/* エラーメッセージ */}
+          {error && (
+            <div style={{ backgroundColor: 'rgba(255,107,138,0.1)', border: '1px solid rgba(255,107,138,0.3)', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', color: '#ff6b8a', fontSize: '13px' }}>
+              {error}
+            </div>
+          )}
+
+          {/* ステップ1: アカウント情報 */}
           {step === 1 && (
             <>
               <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '28px', letterSpacing: '-0.01em' }}>アカウント情報</h2>
@@ -82,7 +107,7 @@ const Register = () => {
             </>
           )}
 
-          {/* ステップ2 */}
+          {/* ステップ2: プロフィール */}
           {step === 2 && (
             <>
               <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '28px', letterSpacing: '-0.01em' }}>プロフィール設定</h2>
@@ -111,14 +136,18 @@ const Register = () => {
                   </select>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
-                  <button onClick={() => setStep(1)} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)', fontWeight: 600, fontSize: '15px', padding: '16px', borderRadius: '12px', cursor: 'pointer', letterSpacing: '0.02em' }}>
+                  <button
+                    onClick={() => setStep(1)}
+                    style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)', fontWeight: 600, fontSize: '15px', padding: '16px', borderRadius: '12px', cursor: 'pointer', letterSpacing: '0.02em' }}
+                  >
                     戻る
                   </button>
                   <button
-                    disabled={!form.nickname || !form.gender || !form.age || !form.prefecture}
-                    style={{ flex: 1, backgroundColor: form.nickname && form.gender && form.age && form.prefecture ? '#ff6b8a' : 'rgba(255,255,255,0.08)', color: form.nickname && form.gender && form.age && form.prefecture ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, fontSize: '15px', padding: '16px', borderRadius: '12px', border: 'none', cursor: form.nickname && form.gender && form.age && form.prefecture ? 'pointer' : 'not-allowed', letterSpacing: '0.05em' }}
+                    onClick={handleSubmit}
+                    disabled={!form.nickname || !form.gender || !form.age || !form.prefecture || isLoading}
+                    style={{ flex: 1, backgroundColor: form.nickname && form.gender && form.age && form.prefecture && !isLoading ? '#ff6b8a' : 'rgba(255,255,255,0.08)', color: form.nickname && form.gender && form.age && form.prefecture && !isLoading ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, fontSize: '15px', padding: '16px', borderRadius: '12px', border: 'none', cursor: form.nickname && form.gender && form.age && form.prefecture && !isLoading ? 'pointer' : 'not-allowed', letterSpacing: '0.05em' }}
                   >
-                    登録する
+                    {isLoading ? '登録中...' : '登録する'}
                   </button>
                 </div>
               </div>
