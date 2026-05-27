@@ -4,84 +4,77 @@ import { Link } from 'react-router-dom'
 // 会員登録ページ
 const Register = () => {
   const [step, setStep] = useState(1)
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    nickname: '',
-    gender: '',
-    age: '',
-    prefecture: '',
-  })
+  const [form, setForm] = useState({ email: '', password: '', nickname: '', gender: '', age: '', prefecture: '' })
 
-  // 入力値の更新
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    padding: '14px 16px',
+    fontSize: '15px',
+    color: '#fff',
+    outline: 'none',
+    boxSizing: 'border-box',
+    letterSpacing: '0.02em',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: '8px',
+    letterSpacing: '0.05em',
+  }
+
+  const prefectures = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県']
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+    <div style={{ minHeight: '100vh', backgroundColor: '#0f0f1a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+      <div style={{ width: '100%', maxWidth: '440px' }}>
 
         {/* ロゴ */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <span className="text-3xl">💍</span>
-            <span className="text-2xl font-bold text-rose-500">Liaison</span>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <Link to="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '28px' }}>💍</span>
+            <span style={{ fontSize: '24px', fontWeight: 800, color: '#ff6b8a' }}>Liaison</span>
           </Link>
-          <p className="text-gray-500 text-sm mt-2">無料会員登録</p>
+          <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '14px', marginTop: '8px', letterSpacing: '0.05em' }}>無料会員登録</p>
         </div>
 
-        {/* ステップインジケーター */}
-        <div className="flex items-center justify-center gap-2 mb-8">
+        {/* ステップ */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '32px' }}>
           {[1, 2].map((s) => (
-            <div key={s} className="flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                step >= s ? 'bg-rose-500 text-white' : 'bg-gray-200 text-gray-400'
-              }`}>
-                {s}
-              </div>
-              {s < 2 && <div className={`w-12 h-0.5 ${step > s ? 'bg-rose-400' : 'bg-gray-200'}`} />}
+            <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: step >= s ? '#ff6b8a' : 'rgba(255,255,255,0.08)', border: step >= s ? 'none' : '1px solid rgba(255,255,255,0.15)', color: step >= s ? '#fff' : 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 700 }}>{s}</div>
+              {s < 2 && <div style={{ width: '48px', height: '1px', backgroundColor: step > s ? '#ff6b8a' : 'rgba(255,255,255,0.1)' }} />}
             </div>
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm p-8">
+        <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '40px' }}>
 
-          {/* ステップ1：アカウント情報 */}
+          {/* ステップ1 */}
           {step === 1 && (
             <>
-              <h2 className="text-xl font-bold text-gray-900 mb-6">アカウント情報</h2>
-              <div className="space-y-4">
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '28px', letterSpacing: '-0.01em' }}>アカウント情報</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    メールアドレス
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="example@email.com"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-                  />
+                  <label style={labelStyle}>メールアドレス</label>
+                  <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="example@email.com" style={inputStyle} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    パスワード
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={form.password}
-                    onChange={handleChange}
-                    placeholder="8文字以上"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-                  />
+                  <label style={labelStyle}>パスワード（8文字以上）</label>
+                  <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="パスワードを入力" style={inputStyle} />
                 </div>
                 <button
                   onClick={() => setStep(2)}
                   disabled={!form.email || !form.password}
-                  className="w-full bg-rose-500 hover:bg-rose-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors mt-2"
+                  style={{ width: '100%', backgroundColor: form.email && form.password ? '#ff6b8a' : 'rgba(255,255,255,0.08)', color: form.email && form.password ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, fontSize: '15px', padding: '16px', borderRadius: '12px', border: 'none', cursor: form.email && form.password ? 'pointer' : 'not-allowed', letterSpacing: '0.05em', marginTop: '4px' }}
                 >
                   次へ進む
                 </button>
@@ -89,87 +82,41 @@ const Register = () => {
             </>
           )}
 
-          {/* ステップ2：プロフィール */}
+          {/* ステップ2 */}
           {step === 2 && (
             <>
-              <h2 className="text-xl font-bold text-gray-900 mb-6">プロフィール設定</h2>
-              <div className="space-y-4">
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '28px', letterSpacing: '-0.01em' }}>プロフィール設定</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    ニックネーム
-                  </label>
-                  <input
-                    type="text"
-                    name="nickname"
-                    value={form.nickname}
-                    onChange={handleChange}
-                    placeholder="表示名（本名不要）"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-                  />
+                  <label style={labelStyle}>ニックネーム</label>
+                  <input type="text" name="nickname" value={form.nickname} onChange={handleChange} placeholder="表示名（本名不要）" style={inputStyle} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    性別
-                  </label>
-                  <select
-                    name="gender"
-                    value={form.gender}
-                    onChange={handleChange}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition bg-white"
-                  >
-                    <option value="">選択してください</option>
-                    <option value="male">男性</option>
-                    <option value="female">女性</option>
+                  <label style={labelStyle}>性別</label>
+                  <select name="gender" value={form.gender} onChange={handleChange} style={{ ...inputStyle, appearance: 'none' }}>
+                    <option value="" style={{ backgroundColor: '#1a1a2e' }}>選択してください</option>
+                    <option value="male" style={{ backgroundColor: '#1a1a2e' }}>男性</option>
+                    <option value="female" style={{ backgroundColor: '#1a1a2e' }}>女性</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    年齢
-                  </label>
-                  <input
-                    type="number"
-                    name="age"
-                    value={form.age}
-                    onChange={handleChange}
-                    placeholder="例：35"
-                    min="18"
-                    max="80"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-                  />
+                  <label style={labelStyle}>年齢</label>
+                  <input type="number" name="age" value={form.age} onChange={handleChange} placeholder="例：35" min="18" max="80" style={inputStyle} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    お住まいの都道府県
-                  </label>
-                  <select
-                    name="prefecture"
-                    value={form.prefecture}
-                    onChange={handleChange}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition bg-white"
-                  >
-                    <option value="">選択してください</option>
-                    {['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県',
-                      '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県',
-                      '新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県',
-                      '静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県',
-                      '奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県',
-                      '徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県',
-                      '熊本県','大分県','宮崎県','鹿児島県','沖縄県'].map(p => (
-                      <option key={p} value={p}>{p}</option>
-                    ))}
+                  <label style={labelStyle}>都道府県</label>
+                  <select name="prefecture" value={form.prefecture} onChange={handleChange} style={{ ...inputStyle, appearance: 'none' }}>
+                    <option value="" style={{ backgroundColor: '#1a1a2e' }}>選択してください</option>
+                    {prefectures.map(p => <option key={p} value={p} style={{ backgroundColor: '#1a1a2e' }}>{p}</option>)}
                   </select>
                 </div>
-
-                <div className="flex gap-3 mt-2">
-                  <button
-                    onClick={() => setStep(1)}
-                    className="flex-1 border border-gray-200 hover:border-gray-300 text-gray-600 font-medium py-3 rounded-xl transition-colors"
-                  >
+                <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
+                  <button onClick={() => setStep(1)} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)', fontWeight: 600, fontSize: '15px', padding: '16px', borderRadius: '12px', cursor: 'pointer', letterSpacing: '0.02em' }}>
                     戻る
                   </button>
                   <button
                     disabled={!form.nickname || !form.gender || !form.age || !form.prefecture}
-                    className="flex-1 bg-rose-500 hover:bg-rose-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors"
+                    style={{ flex: 1, backgroundColor: form.nickname && form.gender && form.age && form.prefecture ? '#ff6b8a' : 'rgba(255,255,255,0.08)', color: form.nickname && form.gender && form.age && form.prefecture ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, fontSize: '15px', padding: '16px', borderRadius: '12px', border: 'none', cursor: form.nickname && form.gender && form.age && form.prefecture ? 'pointer' : 'not-allowed', letterSpacing: '0.05em' }}
                   >
                     登録する
                   </button>
@@ -178,22 +125,14 @@ const Register = () => {
             </>
           )}
 
-          {/* 利用規約 */}
-          <p className="text-xs text-gray-400 text-center mt-6">
-            登録することで
-            <a href="#" className="text-rose-400 hover:underline">利用規約</a>
-            および
-            <a href="#" className="text-rose-400 hover:underline">プライバシーポリシー</a>
-            に同意したものとみなされます。
+          <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '11px', textAlign: 'center', marginTop: '24px', lineHeight: 1.8, letterSpacing: '0.02em' }}>
+            登録することで<a href="#" style={{ color: 'rgba(255,107,138,0.7)' }}>利用規約</a>および<a href="#" style={{ color: 'rgba(255,107,138,0.7)' }}>プライバシーポリシー</a>に同意したものとみなされます。
           </p>
         </div>
 
-        {/* ログインへのリンク */}
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p style={{ textAlign: 'center', fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginTop: '28px', letterSpacing: '0.02em' }}>
           すでにアカウントをお持ちの方は
-          <Link to="/login" className="text-rose-500 font-medium hover:underline ml-1">
-            ログイン
-          </Link>
+          <Link to="/login" style={{ color: '#ff6b8a', fontWeight: 600, textDecoration: 'none', marginLeft: '4px' }}>ログイン</Link>
         </p>
       </div>
     </div>

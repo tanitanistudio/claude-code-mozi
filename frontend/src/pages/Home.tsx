@@ -1,90 +1,117 @@
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
 
-// トップページ
+// トップページ（カドル参考デザイン）
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
+    <div className="min-h-screen" style={{ backgroundColor: '#0f0f1a', color: '#ffffff' }}>
+
+      {/* ヘッダー */}
+      <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, backgroundColor: 'rgba(15,15,26,0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '22px' }}>💍</span>
+            <span style={{ fontSize: '20px', fontWeight: 700, color: '#ff6b8a' }}>Liaison</span>
+          </div>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            <a href="#features" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', textDecoration: 'none' }}>特徴</a>
+            <a href="#how" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', textDecoration: 'none' }}>使い方</a>
+            <a href="#safe" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', textDecoration: 'none' }}>安全性</a>
+          </nav>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Link to="/login" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>ログイン</Link>
+            <Link to="/register" style={{ backgroundColor: '#ff6b8a', color: '#fff', fontSize: '14px', fontWeight: 600, padding: '10px 24px', borderRadius: '50px', textDecoration: 'none' }}>無料登録</Link>
+          </div>
+        </div>
+      </header>
 
       {/* ヒーローセクション */}
-      <section className="pt-24 pb-20 px-6" style={{ background: 'linear-gradient(135deg, #fff1f2 0%, #ffffff 50%, #fdf2f8 100%)' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block bg-rose-100 text-rose-600 text-xs font-semibold px-4 py-2 rounded-full mb-8 tracking-wide">
-            🎉 会員数 50,000人突破
-          </span>
-          <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-6" style={{ letterSpacing: '-0.02em' }}>
-            既婚者だって、<br />
-            <span className="text-rose-500">理解し合える人</span>に<br />
-            出会える。
+      <section style={{ paddingTop: '160px', paddingBottom: '120px', paddingLeft: '24px', paddingRight: '24px', textAlign: 'center', background: 'radial-gradient(ellipse at 50% 0%, rgba(255,107,138,0.15) 0%, transparent 70%)' }}>
+        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+          {/* バッジ */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,107,138,0.15)', border: '1px solid rgba(255,107,138,0.3)', borderRadius: '50px', padding: '8px 20px', marginBottom: '48px' }}>
+            <span style={{ color: '#ff6b8a', fontSize: '13px', fontWeight: 600, letterSpacing: '0.05em' }}>No.1 婚外恋愛マッチングアプリ</span>
+          </div>
+
+          {/* メインコピー */}
+          <h1 style={{ fontSize: '56px', fontWeight: 800, lineHeight: 1.2, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+            同じ立場だから、<br />
+            <span style={{ background: 'linear-gradient(135deg, #ff6b8a, #ff8fab)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>わかりあえる。</span>
           </h1>
-          <p className="text-base text-gray-500 mb-10 max-w-lg mx-auto leading-relaxed">
-            結婚生活に満足できない気持ちを、ひとりで抱え込まないで。<br />
-            同じ立場の相手だから、本音で話せる関係が生まれます。
+
+          {/* サブコピー */}
+          <p style={{ fontSize: '18px', lineHeight: 2.0, color: 'rgba(255,255,255,0.55)', marginBottom: '56px', letterSpacing: '0.02em' }}>
+            既婚者専用だからこそ、本音で話せる。<br />
+            心に寄り添ってくれる相手と、ここで出会えます。
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link to="/register">
-              <button className="bg-rose-500 hover:bg-rose-600 text-white font-bold px-10 py-4 rounded-full text-base transition-all shadow-lg shadow-rose-200 hover:shadow-rose-300 hover:-translate-y-0.5">
-                無料ではじめる →
-              </button>
+
+          {/* CTAボタン */}
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/register" style={{ backgroundColor: '#ff6b8a', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '18px 48px', borderRadius: '50px', textDecoration: 'none', letterSpacing: '0.02em', boxShadow: '0 8px 30px rgba(255,107,138,0.4)' }}>
+              無料ではじめる
             </Link>
-            <a href="#features">
-              <button className="border border-gray-200 hover:border-rose-300 text-gray-600 hover:text-rose-500 font-medium px-10 py-4 rounded-full text-base transition-all">
-                詳しく見る
-              </button>
+            <a href="#features" style={{ backgroundColor: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.8)', fontWeight: 500, fontSize: '16px', padding: '18px 48px', borderRadius: '50px', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)' }}>
+              詳しく見る
             </a>
           </div>
-          <p className="text-xs text-gray-400 mt-4">登録無料・本人確認あり・いつでも退会可能</p>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', marginTop: '20px', letterSpacing: '0.05em' }}>登録無料・本人確認あり・いつでも退会可能</p>
         </div>
       </section>
 
       {/* 統計セクション */}
-      <section className="py-10 bg-white border-y border-gray-100">
-        <div className="max-w-2xl mx-auto px-6">
-          <div className="grid grid-cols-3 gap-4 text-center">
+      <section style={{ padding: '60px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', textAlign: 'center' }}>
+          {[
+            { number: '50,000+', label: '累計会員数' },
+            { number: '1,000万+', label: 'マッチング数' },
+            { number: '4.8', label: 'アプリ評価' },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#ff6b8a', marginBottom: '6px', letterSpacing: '-0.02em' }}>{stat.number}</div>
+              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.05em' }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 特徴セクション */}
+      <section id="features" style={{ padding: '120px 24px' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '72px' }}>
+            <p style={{ color: '#ff6b8a', fontSize: '13px', fontWeight: 600, letterSpacing: '0.15em', marginBottom: '16px', textTransform: 'uppercase' }}>Features</p>
+            <h2 style={{ fontSize: '40px', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em' }}>Liaison が選ばれる理由</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             {[
-              { number: '50,000+', label: '登録会員数' },
-              { number: '4.8', label: 'アプリ評価' },
-              { number: '98%', label: '本人確認済み' },
-            ].map((stat) => (
-              <div key={stat.label} className="py-2">
-                <div className="text-2xl font-bold text-rose-500 mb-1">{stat.number}</div>
-                <div className="text-xs text-gray-400">{stat.label}</div>
+              { icon: '🔒', title: '完全匿名・プライバシー保護', desc: '顔写真はぼかし表示を選択可能。既婚者同士だからこそ、プライバシーを最優先に設計しています。' },
+              { icon: '✅', title: '既婚者限定コミュニティ', desc: '全会員が既婚者であることを確認済み。同じ立場だからこそ生まれる、深い共感と繋がりがあります。' },
+              { icon: '💬', title: 'AIによる価値観マッチング', desc: '趣味・ライフスタイル・求める関係性などをもとに、本当に合う相手をAIが提案します。' },
+            ].map((f) => (
+              <div key={f.title} style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '40px 32px' }}>
+                <div style={{ fontSize: '36px', marginBottom: '20px' }}>{f.icon}</div>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', lineHeight: 1.4 }}>{f.title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '15px', lineHeight: 1.9, letterSpacing: '0.02em' }}>{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 特徴セクション */}
-      <section id="features" className="py-20 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Liaison が選ばれる理由</h2>
-            <p className="text-gray-400 text-sm">安心・安全に、大人の出会いをサポートします。</p>
+      {/* ユーザーの声 */}
+      <section style={{ padding: '120px 24px', backgroundColor: 'rgba(255,107,138,0.04)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '72px' }}>
+            <p style={{ color: '#ff6b8a', fontSize: '13px', fontWeight: 600, letterSpacing: '0.15em', marginBottom: '16px', textTransform: 'uppercase' }}>Voices</p>
+            <h2 style={{ fontSize: '40px', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em' }}>利用者の声</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             {[
-              {
-                icon: '🔒',
-                title: '完全匿名・プライバシー保護',
-                desc: '顔写真はぼかし表示を選択可能。既婚者同士だからこそ、プライバシーを最優先に設計しています。',
-              },
-              {
-                icon: '✅',
-                title: '既婚者限定コミュニティ',
-                desc: '全会員が既婚者であることを確認済み。同じ立場だからこそ生まれる、深い共感と繋がりがあります。',
-              },
-              {
-                icon: '💬',
-                title: 'AIによる価値観マッチング',
-                desc: '趣味・ライフスタイル・求める関係性などをもとに、本当に合う相手をAIがご提案します。',
-              },
-            ].map((feature) => (
-              <div key={feature.title} className="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="text-3xl mb-4">{feature.icon}</div>
-                <h3 className="text-base font-bold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{feature.desc}</p>
+              { text: '同じ立場の人と話せるから、余計な説明が不要で気楽でした。初めてこんなに打ち解けられた気がします。', attr: '30代・女性・関東在住' },
+              { text: '匿名で安心して使えました。プロフィール設定も細かく、本当に相性の良い方に出会えた気がします。', attr: '40代・男性・関西在住' },
+              { text: '既婚者同士だからこそわかる悩みを共有できて、精神的にとても楽になりました。', attr: '30代・女性・九州在住' },
+            ].map((v, i) => (
+              <div key={i} style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '36px 32px' }}>
+                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '15px', lineHeight: 2.0, marginBottom: '24px', letterSpacing: '0.02em' }}>「{v.text}」</p>
+                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px', letterSpacing: '0.05em' }}>{v.attr}</p>
               </div>
             ))}
           </div>
@@ -92,27 +119,24 @@ const Home = () => {
       </section>
 
       {/* 使い方セクション */}
-      <section id="how" className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">かんたん3ステップ</h2>
-            <p className="text-gray-400 text-sm">最短5分で出会いがスタートできます。</p>
+      <section id="how" style={{ padding: '120px 24px' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '72px' }}>
+            <p style={{ color: '#ff6b8a', fontSize: '13px', fontWeight: 600, letterSpacing: '0.15em', marginBottom: '16px', textTransform: 'uppercase' }}>How to start</p>
+            <h2 style={{ fontSize: '40px', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em' }}>かんたん3ステップ</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
             {[
               { step: '01', title: '無料登録', desc: 'メールアドレスだけで登録完了。プロフィールを設定しましょう。' },
               { step: '02', title: '本人確認', desc: '身分証明書で安全に本人確認。既婚者のみが利用できます。' },
-              { step: '03', title: 'マッチング', desc: 'AIがあなたにぴったりの相手を提案。メッセージで話しかけてみましょう。' },
+              { step: '03', title: 'マッチング開始', desc: 'AIがあなたにぴったりの相手を提案。メッセージで話しかけてみましょう。' },
             ].map((item, i) => (
-              <div key={item.step} className="flex flex-col items-center text-center relative">
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-rose-100" />
-                )}
-                <div className="w-16 h-16 bg-rose-500 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-rose-200 relative z-10">
-                  {item.step}
+              <div key={item.step} style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', padding: '40px 0', borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                <div style={{ width: '64px', height: '64px', backgroundColor: 'rgba(255,107,138,0.15)', border: '1px solid rgba(255,107,138,0.3)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 800, color: '#ff6b8a', flexShrink: 0 }}>{item.step}</div>
+                <div>
+                  <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', letterSpacing: '-0.01em' }}>{item.title}</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '15px', lineHeight: 1.9, letterSpacing: '0.02em' }}>{item.desc}</p>
                 </div>
-                <h3 className="text-base font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -120,24 +144,25 @@ const Home = () => {
       </section>
 
       {/* 安全性セクション */}
-      <section id="safe" className="py-20 px-6 bg-rose-50">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="text-4xl mb-4">🛡️</div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">安全への取り組み</h2>
-          <p className="text-gray-500 text-sm mb-10 leading-relaxed">
-            24時間365日の監視体制、通報・ブロック機能、SSL暗号化通信など、<br />
-            多層的なセキュリティで会員の皆様を守ります。
+      <section id="safe" style={{ padding: '120px 24px', backgroundColor: 'rgba(255,107,138,0.04)' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ color: '#ff6b8a', fontSize: '13px', fontWeight: 600, letterSpacing: '0.15em', marginBottom: '16px', textTransform: 'uppercase' }}>Safety</p>
+          <h2 style={{ fontSize: '40px', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em', marginBottom: '20px' }}>安全への取り組み</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', lineHeight: 2.0, marginBottom: '64px', letterSpacing: '0.02em' }}>
+            24時間365日の監視体制と多層的なセキュリティで、<br />会員の皆様のプライバシーを守ります。
           </p>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
             {[
-              '24時間365日 監視・サポート体制',
-              '全会員 身分証明書による本人確認',
-              'SSL暗号化通信でデータ保護',
-              '迷惑行為への厳正な対処',
+              { icon: '👁', text: '24時間365日 監視体制' },
+              { icon: '🪪', text: '全会員 本人確認済み' },
+              { icon: '🔐', text: 'SSL暗号化通信' },
+              { icon: '🚫', text: '迷惑行為への厳正対処' },
+              { icon: '📵', text: 'ブロック・通報機能' },
+              { icon: '🛡', text: 'プライバシー最優先設計' },
             ].map((item) => (
-              <div key={item} className="flex items-center gap-3 bg-white rounded-xl px-5 py-4 shadow-sm border border-rose-100">
-                <span className="text-rose-400 font-bold flex-shrink-0">✓</span>
-                <span className="text-gray-700 text-sm text-left">{item}</span>
+              <div key={item.text} style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <span style={{ fontSize: '22px' }}>{item.icon}</span>
+                <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', letterSpacing: '0.02em', textAlign: 'left' }}>{item.text}</span>
               </div>
             ))}
           </div>
@@ -145,35 +170,33 @@ const Home = () => {
       </section>
 
       {/* CTAセクション */}
-      <section className="py-20 px-6" style={{ background: 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-3">
-            新しい出会いを、今すぐ。
+      <section style={{ padding: '120px 24px', textAlign: 'center', background: 'radial-gradient(ellipse at 50% 100%, rgba(255,107,138,0.2) 0%, transparent 70%)' }}>
+        <div style={{ maxWidth: '560px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '44px', fontWeight: 800, lineHeight: 1.25, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+            新しい出会いを、<br />今すぐ。
           </h2>
-          <p className="text-rose-100 text-sm mb-8 leading-relaxed">
-            登録は無料です。まずはプロフィールを作成してみましょう。
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', lineHeight: 2.0, marginBottom: '48px', letterSpacing: '0.02em' }}>
+            登録は完全無料。<br />まずはプロフィールを作成してみましょう。
           </p>
-          <Link to="/register">
-            <button className="bg-white hover:bg-rose-50 text-rose-500 font-bold px-12 py-4 rounded-full text-base transition-all shadow-xl hover:-translate-y-0.5">
-              無料で登録する
-            </button>
+          <Link to="/register" style={{ display: 'inline-block', backgroundColor: '#ff6b8a', color: '#fff', fontWeight: 700, fontSize: '17px', padding: '20px 60px', borderRadius: '50px', textDecoration: 'none', letterSpacing: '0.02em', boxShadow: '0 12px 40px rgba(255,107,138,0.4)' }}>
+            無料ではじめる
           </Link>
         </div>
       </section>
 
       {/* フッター */}
-      <footer className="py-10 px-6 bg-gray-900">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💍</span>
-            <span className="text-white font-bold">Liaison</span>
+      <footer style={{ padding: '48px 24px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '20px' }}>💍</span>
+            <span style={{ fontWeight: 700, color: '#ff6b8a', fontSize: '18px' }}>Liaison</span>
           </div>
-          <div className="flex gap-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">利用規約</a>
-            <a href="#" className="hover:text-white transition-colors">プライバシーポリシー</a>
-            <a href="#" className="hover:text-white transition-colors">お問い合わせ</a>
+          <div style={{ display: 'flex', gap: '32px' }}>
+            {['利用規約', 'プライバシーポリシー', '特定商取引法', 'お問い合わせ'].map((link) => (
+              <a key={link} href="#" style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px', textDecoration: 'none', letterSpacing: '0.02em' }}>{link}</a>
+            ))}
           </div>
-          <p className="text-gray-500 text-sm">© 2026 Liaison. All rights reserved.</p>
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '12px', letterSpacing: '0.05em' }}>© 2026 Liaison. All rights reserved.</p>
         </div>
       </footer>
     </div>

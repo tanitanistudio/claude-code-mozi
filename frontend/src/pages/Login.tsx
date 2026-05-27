@@ -5,102 +5,106 @@ import { Link } from 'react-router-dom'
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' })
 
-  // 入力値の更新
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    padding: '14px 16px',
+    fontSize: '15px',
+    color: '#fff',
+    outline: 'none',
+    boxSizing: 'border-box',
+    letterSpacing: '0.02em',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: '8px',
+    letterSpacing: '0.05em',
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <div style={{ minHeight: '100vh', backgroundColor: '#0f0f1a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+      <div style={{ width: '100%', maxWidth: '420px' }}>
 
         {/* ロゴ */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <span className="text-3xl">💍</span>
-            <span className="text-2xl font-bold text-rose-500">Liaison</span>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <Link to="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '28px' }}>💍</span>
+            <span style={{ fontSize: '24px', fontWeight: 800, color: '#ff6b8a' }}>Liaison</span>
           </Link>
-          <p className="text-gray-500 text-sm mt-2">アカウントにログイン</p>
+          <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '14px', marginTop: '8px', letterSpacing: '0.05em' }}>アカウントにログイン</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm p-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">ログイン</h2>
-
-          <div className="space-y-4">
+        <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '40px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                メールアドレス
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="example@email.com"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-              />
+              <label style={labelStyle}>メールアドレス</label>
+              <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="example@email.com" style={inputStyle} />
             </div>
-
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  パスワード
-                </label>
-                <a href="#" className="text-xs text-rose-400 hover:underline">
-                  パスワードを忘れた方
-                </a>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <label style={labelStyle}>パスワード</label>
+                <a href="#" style={{ color: '#ff6b8a', fontSize: '12px', textDecoration: 'none' }}>パスワードを忘れた方</a>
               </div>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="パスワードを入力"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100 transition"
-              />
+              <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="パスワードを入力" style={inputStyle} />
             </div>
 
             <button
               disabled={!form.email || !form.password}
-              className="w-full bg-rose-500 hover:bg-rose-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors mt-2"
+              style={{
+                width: '100%',
+                backgroundColor: form.email && form.password ? '#ff6b8a' : 'rgba(255,255,255,0.08)',
+                color: form.email && form.password ? '#fff' : 'rgba(255,255,255,0.3)',
+                fontWeight: 700,
+                fontSize: '15px',
+                padding: '16px',
+                borderRadius: '12px',
+                border: 'none',
+                cursor: form.email && form.password ? 'pointer' : 'not-allowed',
+                letterSpacing: '0.05em',
+                marginTop: '4px',
+              }}
             >
               ログイン
             </button>
           </div>
 
-          {/* 区切り線 */}
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-gray-100" />
-            <span className="text-xs text-gray-400">または</span>
-            <div className="flex-1 h-px bg-gray-100" />
+          {/* 区切り */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '28px 0' }}>
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
+            <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px' }}>または</span>
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
           </div>
 
           {/* SNSログイン */}
-          <div className="space-y-3">
-            <button className="w-full flex items-center justify-center gap-3 border border-gray-200 hover:border-gray-300 rounded-xl py-3 text-sm text-gray-600 transition-colors">
-              <span className="text-lg">G</span>
-              Googleでログイン
-            </button>
-            <button className="w-full flex items-center justify-center gap-3 border border-gray-200 hover:border-gray-300 rounded-xl py-3 text-sm text-gray-600 transition-colors">
-              <span className="text-lg">🐦</span>
-              X（Twitter）でログイン
-            </button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {[
+              { label: 'Googleでログイン', icon: 'G' },
+              { label: 'X（Twitter）でログイン', icon: '𝕏' },
+            ].map((btn) => (
+              <button key={btn.label} style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '14px', color: 'rgba(255,255,255,0.7)', fontSize: '14px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', letterSpacing: '0.02em' }}>
+                <span style={{ fontSize: '16px', fontWeight: 700 }}>{btn.icon}</span>
+                {btn.label}
+              </button>
+            ))}
           </div>
 
-          {/* 利用規約 */}
-          <p className="text-xs text-gray-400 text-center mt-6">
-            ログインすることで
-            <a href="#" className="text-rose-400 hover:underline">利用規約</a>
-            に同意したものとみなされます。
+          <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '11px', textAlign: 'center', marginTop: '24px', lineHeight: 1.8, letterSpacing: '0.02em' }}>
+            ログインすることで<a href="#" style={{ color: 'rgba(255,107,138,0.7)' }}>利用規約</a>および<a href="#" style={{ color: 'rgba(255,107,138,0.7)' }}>プライバシーポリシー</a>に同意したものとみなされます。
           </p>
         </div>
 
-        {/* 会員登録へのリンク */}
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p style={{ textAlign: 'center', fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginTop: '28px', letterSpacing: '0.02em' }}>
           まだ会員登録がお済みでない方は
-          <Link to="/register" className="text-rose-500 font-medium hover:underline ml-1">
-            無料で登録
-          </Link>
+          <Link to="/register" style={{ color: '#ff6b8a', fontWeight: 600, textDecoration: 'none', marginLeft: '4px' }}>無料で登録</Link>
         </p>
       </div>
     </div>
