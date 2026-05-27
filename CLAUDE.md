@@ -44,14 +44,33 @@
 ## ディレクトリ構成
 
 ```
-src/
-├── components/   # 再利用可能なUIコンポーネント
-├── pages/        # ページコンポーネント（またはapp/）
-├── hooks/        # カスタムフック
-├── stores/       # 状態管理
-├── utils/        # ユーティリティ関数
-├── types/        # TypeScript型定義
-└── assets/       # 画像・フォントなどの静的ファイル
+./                         # モノレポルート
+├── frontend/              # React + TypeScript（Vite）
+│   ├── src/
+│   │   ├── components/    # 再利用可能なUIコンポーネント
+│   │   ├── pages/         # ページコンポーネント
+│   │   ├── hooks/         # カスタムフック
+│   │   ├── stores/        # 状態管理（Zustand）
+│   │   ├── utils/         # ユーティリティ関数
+│   │   ├── types/         # TypeScript型定義
+│   │   └── assets/        # 画像・フォントなどの静的ファイル
+│   ├── package.json
+│   └── vite.config.ts
+├── backend/               # Laravel
+│   ├── app/
+│   │   ├── Http/
+│   │   │   ├── Controllers/
+│   │   │   └── Requests/
+│   │   └── Models/
+│   ├── database/
+│   │   ├── migrations/
+│   │   ├── factories/
+│   │   └── seeders/
+│   ├── routes/
+│   │   └── api.php        # APIルート定義
+│   └── composer.json
+├── .gitignore
+└── CLAUDE.md
 ```
 
 ---
