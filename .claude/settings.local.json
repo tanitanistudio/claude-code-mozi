@@ -17,7 +17,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000)",
       "Bash(pkill -f \"vite\")",
       "Bash(pkill -f \"php artisan serve\")",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(xargs grep -l \"^\\\\*$\")"
     ]
   }
 }
