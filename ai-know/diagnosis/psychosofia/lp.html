@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サイコソフィア診断 ― あなたの4つの精神機能の優先順位を解明する | AI-KNOW</title>
+<meta name="description" content="意志・感情・論理・身体――4つの精神機能があなたの中でどの順番で働いているかを解明。32問・約7分・24タイプ。登録不要で無料。">
+<meta property="og:title" content="サイコソフィア診断 | AI-KNOW">
+<meta property="og:description" content="4つの精神機能の優先順位を解明する深層自己理解診断。32問・約7分・24タイプ。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #080B14;
+  --bg-primary: #0D1120;
+  --bg-secondary: #131826;
+  --bg-card: #1A2038;
+  --bg-card-hover: #1F2640;
+  --border: #252D44;
+  --border-subtle: #1C2234;
+  --text-primary: #EDEBE4;
+  --text-secondary: #9A9EB8;
+  --text-muted: #565D7A;
+  --brand: #C9A84C;
+  --brand-light: #D9BC70;
+  --brand-dark: #A88C3A;
+  --axis-W: #E07B45;
+  --axis-W-muted: rgba(224,123,69,.18);
+  --axis-E: #C4668A;
+  --axis-E-muted: rgba(196,102,138,.18);
+  --axis-L: #5A9FD6;
+  --axis-L-muted: rgba(90,159,214,.18);
+  --axis-F: #6BAF8A;
+  --axis-F-muted: rgba(107,175,138,.18);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,.4);
+  --transition: 250ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ─── Nav ─────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.25rem;
+  height: 60px;
+  background: rgba(8,11,20,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .12em;
+  color: var(--brand);
+}
+.nav-logo span { color: var(--text-primary); }
+.nav-cta {
+  background: var(--brand);
+  color: #000;
+  font-weight: 700;
+  font-size: .8rem;
+  padding: .45rem 1.1rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--brand-light); }
+.nav-cta:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* ─── Hero ────────────────────────── */
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 1.25rem 4rem;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(90,159,214,.07) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 20% 60%, rgba(196,102,138,.06) 0%, transparent 55%),
+              var(--bg-deep);
+  overflow: hidden;
+  position: relative;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .3rem .9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--brand);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.8); }
+}
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5.5vw, 3.2rem);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  margin-bottom: 1.25rem;
+}
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 50%, #E8C97C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-desc {
+  font-size: clamp(.9rem, 2.5vw, 1.05rem);
+  color: var(--text-secondary);
+  line-height: 1.85;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--brand);
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: .9rem 2rem;
+  border-radius: var(--radius-md);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  border: none; cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--brand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,168,76,.25);
+}
+.btn-primary:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary svg { width: 18px; height: 18px; }
+.hero-note {
+  font-size: .8rem;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: .4rem;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: .75rem;
+  margin-top: 2.5rem;
+}
+.stat-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .35rem .9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: .8rem;
+  color: var(--text-secondary);
+}
+.stat-chip strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ─── Hero Visual (4-orb) ────────── */
+.hero-visual {
+  position: relative;
+  width: 280px; height: 280px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+.orb {
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  filter: blur(42px);
+  opacity: .6;
+}
+.orb-W { background: var(--axis-W); top: 0; left: 0; animation: orbW 7s ease-in-out infinite alternate; }
+.orb-E { background: var(--axis-E); top: 0; right: 0; animation: orbE 8s ease-in-out infinite alternate; }
+.orb-L { background: var(--axis-L); bottom: 0; left: 0; animation: orbL 9s ease-in-out infinite alternate; }
+.orb-F { background: var(--axis-F); bottom: 0; right: 0; animation: orbF 6s ease-in-out infinite alternate; }
+.orb-center {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(4px);
+  opacity: .8;
+  z-index: 2;
+}
+@keyframes orbW { from { transform: translate(0,0) scale(1); } to { transform: translate(12px,8px) scale(1.1); } }
+@keyframes orbE { from { transform: translate(0,0) scale(1); } to { transform: translate(-10px,10px) scale(1.08); } }
+@keyframes orbL { from { transform: translate(0,0) scale(1); } to { transform: translate(10px,-8px) scale(1.12); } }
+@keyframes orbF { from { transform: translate(0,0) scale(1); } to { transform: translate(-12px,-6px) scale(1.06); } }
+
+/* ─── Sections ───────────────────── */
+section { padding: 5rem 1.25rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  color: var(--brand);
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+.section-desc {
+  color: var(--text-secondary);
+  font-size: clamp(.9rem, 2.5vw, 1rem);
+  max-width: 580px;
+  margin-bottom: 3rem;
+}
+
+/* ─── What section ───────────────── */
+.what-section { background: var(--bg-secondary); }
+.axis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.axis-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color var(--transition), transform var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.axis-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.axis-card.W::before { background: var(--axis-W); }
+.axis-card.E::before { background: var(--axis-E); }
+.axis-card.L::before { background: var(--axis-L); }
+.axis-card.F::before { background: var(--axis-F); }
+.axis-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.axis-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.axis-card.W .axis-icon { background: var(--axis-W-muted); }
+.axis-card.E .axis-icon { background: var(--axis-E-muted); }
+.axis-card.L .axis-icon { background: var(--axis-L-muted); }
+.axis-card.F .axis-icon { background: var(--axis-F-muted); }
+.axis-letter {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: .08em;
+  margin-bottom: .25rem;
+}
+.axis-card.W .axis-letter { color: var(--axis-W); }
+.axis-card.E .axis-letter { color: var(--axis-E); }
+.axis-card.L .axis-letter { color: var(--axis-L); }
+.axis-card.F .axis-letter { color: var(--axis-F); }
+.axis-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: .5rem;
+}
+.axis-desc {
+  font-size: .85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.axis-tags {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin-top: .85rem;
+}
+.axis-tag {
+  font-size: .72rem;
+  padding: .2rem .6rem;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.axis-card.W .axis-tag { color: var(--axis-W); border-color: rgba(224,123,69,.35); background: var(--axis-W-muted); }
+.axis-card.E .axis-tag { color: var(--axis-E); border-color: rgba(196,102,138,.35); background: var(--axis-E-muted); }
+.axis-card.L .axis-tag { color: var(--axis-L); border-color: rgba(90,159,214,.35); background: var(--axis-L-muted); }
+.axis-card.F .axis-tag { color: var(--axis-F); border-color: rgba(107,175,138,.35); background: var(--axis-F-muted); }
+
+/* ─── How section ────────────────── */
+.steps {
+  display: grid;
+  gap: 1.5rem;
+  counter-reset: step;
+}
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  position: relative;
+}
+.step-num {
+  width: 48px; height: 48px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--brand);
+}
+.step-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .35rem; }
+.step-body p { font-size: .9rem; color: var(--text-secondary); }
+
+/* ─── Sample section ─────────────── */
+.sample-section { background: var(--bg-secondary); }
+.sample-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.sample-q-label {
+  font-size: .75rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: .08em;
+}
+.sample-q-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+.sample-scale {
+  display: flex; justify-content: center; gap: .5rem;
+  margin-bottom: 1rem;
+}
+.scale-btn-demo {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+.scale-btn-demo:hover { border-color: var(--brand); color: var(--brand); }
+.scale-btn-demo.selected { background: var(--brand); border-color: var(--brand); color: #000; box-shadow: 0 0 12px rgba(201,168,76,.35); }
+.scale-btn-demo:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.scale-labels-demo {
+  display: flex; justify-content: space-between;
+  font-size: .75rem;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+.sample-note {
+  text-align: center;
+  font-size: .8rem;
+  color: var(--text-muted);
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ─── Types preview ──────────────── */
+.types-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.type-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color var(--transition), transform var(--transition);
+  cursor: default;
+}
+.type-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.type-code-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .1em;
+  padding: .25rem .7rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: .75rem;
+}
+.type-card.W .type-code-badge { background: var(--axis-W-muted); color: var(--axis-W); }
+.type-card.E .type-code-badge { background: var(--axis-E-muted); color: var(--axis-E); }
+.type-card.L .type-code-badge { background: var(--axis-L-muted); color: var(--axis-L); }
+.type-card.F .type-code-badge { background: var(--axis-F-muted); color: var(--axis-F); }
+.type-name {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: .35rem;
+}
+.type-catchcopy {
+  font-size: .82rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.type-func-order {
+  display: flex; gap: .35rem; align-items: center;
+  flex-wrap: wrap;
+}
+.func-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .15rem .55rem;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.func-chip.W { color: var(--axis-W); border-color: rgba(224,123,69,.4); background: var(--axis-W-muted); }
+.func-chip.E { color: var(--axis-E); border-color: rgba(196,102,138,.4); background: var(--axis-E-muted); }
+.func-chip.L { color: var(--axis-L); border-color: rgba(90,159,214,.4); background: var(--axis-L-muted); }
+.func-chip.F { color: var(--axis-F); border-color: rgba(107,175,138,.4); background: var(--axis-F-muted); }
+.func-arrow { color: var(--text-muted); font-size: .75rem; }
+.types-more {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: .85rem;
+  margin-top: 1.5rem;
+}
+
+/* ─── Final CTA ──────────────────── */
+.cta-section {
+  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(201,168,76,.06) 0%, transparent 70%), var(--bg-secondary);
+  text-align: center;
+  padding: 6rem 1.25rem;
+}
+.cta-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  margin-bottom: .75rem;
+}
+.cta-sub {
+  color: var(--text-secondary);
+  font-size: clamp(.9rem, 2.5vw, 1rem);
+  margin-bottom: 2.5rem;
+}
+.cta-note {
+  margin-top: 1rem;
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+
+/* ─── Footer ─────────────────────── */
+footer {
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-subtle);
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: .75rem;
+  align-items: center;
+}
+.footer-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--brand);
+}
+.footer-logo span { color: var(--text-secondary); }
+.footer-copy { font-size: .78rem; color: var(--text-muted); }
+
+/* ─── Reveal animation ───────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── Responsive ─────────────────── */
+@media (min-width: 640px) {
+  .hero-inner { grid-template-columns: 1fr 1fr; }
+  .hero-visual { width: 300px; height: 300px; margin: 0; }
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 720px) {
+  section { padding: 6rem 2rem; }
+  .nav { padding: 0 2rem; }
+  .hero { padding: 100px 2rem 5rem; }
+}
+
+@media (min-width: 1080px) {
+  .hero-inner { grid-template-columns: 3fr 2fr; gap: 4rem; }
+  .hero-visual { width: 360px; height: 360px; }
+  .axis-grid { grid-template-columns: repeat(4, 1fr); }
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .types-grid { grid-template-columns: repeat(4, 1fr); }
+  section { padding: 7rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="メインナビゲーション">
+  <div class="nav-logo">AI-KNOW <span>/ Psychosofia</span></div>
+  <a href="quiz.html" class="nav-cta">診断を始める</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">New Diagnosis 2026</div>
+      <h1 class="hero-title" id="hero-title">
+        あなたの4つの<em>精神機能</em>の<br>優先順位を解明する
+      </h1>
+      <p class="hero-desc">
+        意志・感情・論理・身体――<br>
+        4つの精神機能があなたの中でどの順番で働いているかを明らかにする、深層自己理解診断。MBTIを超えた、新しい自己認識の地平へ。
+      </p>
+      <div class="hero-actions">
+        <a href="quiz.html" class="btn-primary">
+          無料で診断を始める
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
+        </a>
+        <span class="hero-note">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 5v4l3 3"/></svg>
+          約7分で完了
+        </span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-chip"><strong>32</strong> 問</div>
+        <div class="stat-chip"><strong>7</strong> 段階評価</div>
+        <div class="stat-chip"><strong>24</strong> タイプ</div>
+        <div class="stat-chip"><strong>無料</strong>・登録不要</div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true" role="presentation">
+      <div class="orb orb-W"></div>
+      <div class="orb orb-E"></div>
+      <div class="orb orb-L"></div>
+      <div class="orb orb-F"></div>
+      <div class="orb-center"></div>
+    </div>
+  </div>
+</section>
+
+<!-- What section -->
+<section class="what-section" aria-labelledby="what-title">
+  <div class="section-inner">
+    <p class="section-tag reveal">サイコソフィアとは</p>
+    <h2 class="section-title reveal" id="what-title">4つの精神機能が、あなたを形づくる</h2>
+    <p class="section-desc reveal">
+      アレクサンドル・アファナシエフが提唱した性格類型論。人間の心理を4つの機能で捉え、その優先順位が各人に固有の「精神の構造」を形成するとする。
+    </p>
+    <div class="axis-grid reveal">
+      <div class="axis-card W">
+        <div class="axis-icon">🔥</div>
+        <div class="axis-letter">W — WILL</div>
+        <h3 class="axis-name">意志</h3>
+        <p class="axis-desc">目標への執着、自律性、他者への影響力。自分の意志でどこまで動けるかを規定する機能。</p>
+        <div class="axis-tags">
+          <span class="axis-tag">決断力</span>
+          <span class="axis-tag">目標志向</span>
+          <span class="axis-tag">自律</span>
+        </div>
+      </div>
+      <div class="axis-card E">
+        <div class="axis-icon">💫</div>
+        <div class="axis-letter">E — EMOTION</div>
+        <h3 class="axis-name">感情</h3>
+        <p class="axis-desc">感情表現、共感、人とのつながりへの感度。感情をどう扱い、他者とどう共鳴するかを規定する。</p>
+        <div class="axis-tags">
+          <span class="axis-tag">共感力</span>
+          <span class="axis-tag">表現</span>
+          <span class="axis-tag">感受性</span>
+        </div>
+      </div>
+      <div class="axis-card L">
+        <div class="axis-icon">🧊</div>
+        <div class="axis-letter">L — LOGIC</div>
+        <h3 class="axis-name">論理</h3>
+        <p class="axis-desc">分析的思考、体系化、論拠への信頼。世界を論理でどこまで把握・説明しようとするかを規定する。</p>
+        <div class="axis-tags">
+          <span class="axis-tag">分析力</span>
+          <span class="axis-tag">体系化</span>
+          <span class="axis-tag">構造</span>
+        </div>
+      </div>
+      <div class="axis-card F">
+        <div class="axis-icon">🌿</div>
+        <div class="axis-letter">F — PHYSICS</div>
+        <h3 class="axis-name">身体・物質</h3>
+        <p class="axis-desc">感覚的快適さ、身体意識、実践的行動力。物質世界との関係性と体験的理解の深さを規定する。</p>
+        <div class="axis-tags">
+          <span class="axis-tag">感覚</span>
+          <span class="axis-tag">実践</span>
+          <span class="axis-tag">身体意識</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section aria-labelledby="how-title">
+  <div class="section-inner">
+    <p class="section-tag reveal">診断の流れ</p>
+    <h2 class="section-title reveal" id="how-title">3ステップで、あなたのタイプが判明</h2>
+    <p class="section-desc reveal">全32問・約7分。登録不要で、すぐに始められます。</p>
+    <div class="steps">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>32問に回答する</h3>
+          <p>日常の行動・思考・感覚に関する32問に、7段階で答えます。正解はありません。直感的に回答してください。</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>4軸スコアを自動計算</h3>
+          <p>意志・感情・論理・身体の各軸スコアを算出。重み付けと逆転項目で精度を高めた独自アルゴリズムを使用。</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>あなたのタイプが判明</h3>
+          <p>4軸の優先順位から、24タイプのうちのあなたのタイプが確定。強み・課題・相性が詳細に示されます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sample question -->
+<section class="sample-section" aria-labelledby="sample-title">
+  <div class="section-inner">
+    <p class="section-tag reveal">設問サンプル</p>
+    <h2 class="section-title reveal" id="sample-title">こんな質問が出ます</h2>
+    <p class="section-desc reveal">実際に試してみてください（回答は保存されません）。</p>
+    <div class="sample-card reveal">
+      <div class="sample-q-label">Q. サンプル設問</div>
+      <p class="sample-q-text">一度決めたことは、周囲の反対があっても<br>最後まで貫き通す</p>
+      <div class="sample-scale" role="radiogroup" aria-label="回答を選択してください">
+        <button class="scale-btn-demo" data-val="1" aria-label="1: 全くあてはまらない">1</button>
+        <button class="scale-btn-demo" data-val="2" aria-label="2">2</button>
+        <button class="scale-btn-demo" data-val="3" aria-label="3">3</button>
+        <button class="scale-btn-demo" data-val="4" aria-label="4: どちらでもない">4</button>
+        <button class="scale-btn-demo" data-val="5" aria-label="5">5</button>
+        <button class="scale-btn-demo" data-val="6" aria-label="6">6</button>
+        <button class="scale-btn-demo" data-val="7" aria-label="7: 非常にあてはまる">7</button>
+      </div>
+      <div class="scale-labels-demo">
+        <span>全くあてはまらない</span>
+        <span>非常にあてはまる</span>
+      </div>
+      <p class="sample-note">このような質問が全部で32問続きます</p>
+    </div>
+  </div>
+</section>
+
+<!-- Type previews -->
+<section aria-labelledby="types-title">
+  <div class="section-inner">
+    <p class="section-tag reveal">結果タイプ</p>
+    <h2 class="section-title reveal" id="types-title">24のタイプのうち、あなたはどれ？</h2>
+    <p class="section-desc reveal">4機能の優先順位の組み合わせで、24の固有タイプが生まれます。</p>
+    <div class="types-grid">
+      <div class="type-card W reveal">
+        <div class="type-code-badge">WELF</div>
+        <h3 class="type-name">ナポレオン</h3>
+        <p class="type-catchcopy">意志と情熱で時代を動かす</p>
+        <div class="type-func-order" aria-label="機能優先順位">
+          <span class="func-chip W">意志</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip E">感情</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip L">論理</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip F">身体</span>
+        </div>
+      </div>
+      <div class="type-card E reveal">
+        <div class="type-code-badge">EWLF</div>
+        <h3 class="type-name">情熱家</h3>
+        <p class="type-catchcopy">感情と意志で心を揺さぶる</p>
+        <div class="type-func-order" aria-label="機能優先順位">
+          <span class="func-chip E">感情</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip W">意志</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip L">論理</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip F">身体</span>
+        </div>
+      </div>
+      <div class="type-card L reveal">
+        <div class="type-code-badge">LEWF</div>
+        <h3 class="type-name">ソクラテス</h3>
+        <p class="type-catchcopy">真理を問い続ける哲学者</p>
+        <div class="type-func-order" aria-label="機能優先順位">
+          <span class="func-chip L">論理</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip E">感情</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip W">意志</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip F">身体</span>
+        </div>
+      </div>
+      <div class="type-card F reveal">
+        <div class="type-code-badge">FLEW</div>
+        <h3 class="type-name">ナチュラリスト</h3>
+        <p class="type-catchcopy">感覚と論理で自然と調和する</p>
+        <div class="type-func-order" aria-label="機能優先順位">
+          <span class="func-chip F">身体</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip L">論理</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip E">感情</span>
+          <span class="func-arrow" aria-hidden="true">›</span>
+          <span class="func-chip W">意志</span>
+        </div>
+      </div>
+    </div>
+    <p class="types-more reveal">他 20 のタイプは診断で発見できます</p>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta-section" aria-labelledby="cta-title">
+  <div class="section-inner">
+    <h2 class="cta-title reveal" id="cta-title">あなたはどのタイプ？</h2>
+    <p class="cta-sub reveal">MBTIを超えた、深層の自己理解へ</p>
+    <a href="quiz.html" class="btn-primary reveal" style="display:inline-flex;">
+      今すぐ診断する（無料）
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
+    </a>
+    <p class="cta-note reveal">登録不要・回答データは端末内にのみ保存</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-logo">AI-KNOW <span>Psychosofia Diagnosis</span></div>
+    <p class="footer-copy">© 2026 AI-KNOW. Psychosofia Theory based on A.Y. Afanasyev (1985).</p>
+  </div>
+</footer>
+
+<script>
+// Demo scale interaction
+document.querySelectorAll('.scale-btn-demo').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.scale-btn-demo').forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+  btn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+  });
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
