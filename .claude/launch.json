@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "/Users/tanitanistudio/Desktop/ClaudeCode/frontend"],
       "port": 5173
+    },
+    {
+      "name": "psychosofia",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/tanitanistudio/Desktop/ClaudeCode/ai-know/diagnosis/psychosofia"],
+      "port": 8765
     }
   ]
 }

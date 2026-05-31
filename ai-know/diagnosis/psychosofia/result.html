@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>診断結果 | サイコソフィア診断 | AI-KNOW</title>
+<meta id="metaDesc" name="description" content="サイコソフィア診断の結果ページ">
+<meta id="ogTitle" property="og:title" content="サイコソフィア診断 結果 | AI-KNOW">
+<meta id="ogDesc" property="og:description" content="">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #080B14;
+  --bg-primary: #0D1120;
+  --bg-secondary: #131826;
+  --bg-card: #1A2038;
+  --border: #252D44;
+  --border-subtle: #1C2234;
+  --text-primary: #EDEBE4;
+  --text-secondary: #9A9EB8;
+  --text-muted: #565D7A;
+  --brand: #C9A84C;
+  --brand-light: #D9BC70;
+  --axis-W: #E07B45; --axis-W-muted: rgba(224,123,69,.18);
+  --axis-E: #C4668A; --axis-E-muted: rgba(196,102,138,.18);
+  --axis-L: #5A9FD6; --axis-L-muted: rgba(90,159,214,.18);
+  --axis-F: #6BAF8A; --axis-F-muted: rgba(107,175,138,.18);
+  --type-color: var(--brand);
+  --type-muted: rgba(201,168,76,.18);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Noto Sans JP', sans-serif;
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Nav ──────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.25rem; height: 56px;
+  background: rgba(8,11,20,.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-logo { font-family:'Inter',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:.1em; color:var(--brand); text-decoration:none; }
+.nav-logo span { color:var(--text-secondary); }
+.btn-retake {
+  background: none; border: 1px solid var(--border);
+  color: var(--text-secondary); font-size:.78rem; padding:.4rem .9rem;
+  border-radius:8px; cursor:pointer; transition:border-color .2s,color .2s;
+  text-decoration:none; display:inline-flex; align-items:center; gap:.3rem;
+}
+.btn-retake:hover { border-color:var(--text-secondary); color:var(--text-primary); }
+.btn-retake:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+
+/* ── Page layout ──────────── */
+.page { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+
+/* ── Not found ────────────── */
+.not-found { text-align:center; padding:6rem 1.25rem; }
+.not-found h1 { font-family:'Noto Serif JP',serif; font-size:1.5rem; margin-bottom:1rem; }
+.not-found p { color:var(--text-secondary); margin-bottom:2rem; }
+
+/* ── Hero card ────────────── */
+.result-hero {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  animation: fadeUp .5s ease both;
+}
+.result-hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--type-color), transparent);
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.type-code-big {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 700; letter-spacing: .15em;
+  color: var(--type-color);
+  background: var(--type-muted);
+  padding: .5rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--type-color) 30%, transparent);
+}
+.type-name-big {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  margin-bottom: .5rem;
+}
+.type-catchcopy {
+  font-style: italic;
+  color: var(--brand);
+  font-size: clamp(.9rem, 2.5vw, 1.05rem);
+  margin-bottom: 1.75rem;
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* function order bar */
+.func-order {
+  display: flex; justify-content: center; align-items: center;
+  gap: .4rem; flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.func-rank {
+  display: flex; flex-direction: column; align-items: center; gap: .2rem;
+}
+.func-rank-num {
+  font-family: 'Inter', sans-serif; font-size: .65rem;
+  color: var(--text-muted); font-weight: 600;
+}
+.func-badge {
+  padding: .35rem .8rem;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: .82rem; font-weight: 700;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.func-badge.W { color:var(--axis-W); border-color:rgba(224,123,69,.4); background:var(--axis-W-muted); }
+.func-badge.E { color:var(--axis-E); border-color:rgba(196,102,138,.4); background:var(--axis-E-muted); }
+.func-badge.L { color:var(--axis-L); border-color:rgba(90,159,214,.4); background:var(--axis-L-muted); }
+.func-badge.F { color:var(--axis-F); border-color:rgba(107,175,138,.4); background:var(--axis-F-muted); }
+.func-arrow { color:var(--text-muted); font-size:.9rem; padding-bottom:1.1rem; }
+
+.type-desc {
+  color: var(--text-secondary);
+  font-size: clamp(.88rem, 2.5vw, 1rem);
+  line-height: 1.85;
+  text-align: left;
+}
+
+/* ── Border type notice ────── */
+.border-notice {
+  display: none;
+  background: rgba(201,168,76,.08);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 12px;
+  padding: .85rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-size: .85rem;
+  color: var(--brand);
+  animation: fadeUp .5s .1s ease both;
+}
+.border-notice.visible { display: block; }
+.border-notice strong { display:block; margin-bottom:.25rem; }
+
+/* ── Score bars ────────────── */
+.score-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  animation: fadeUp .5s .15s ease both;
+}
+.score-section h2 {
+  font-size: .82rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--text-muted); text-transform: uppercase; font-family:'Inter',sans-serif;
+  margin-bottom: 1rem;
+}
+.score-row { display:flex; align-items:center; gap:.75rem; margin-bottom:.75rem; }
+.score-row:last-child { margin-bottom:0; }
+.score-axis-label {
+  font-family:'Inter',sans-serif; font-weight:700; font-size:.78rem;
+  width:20px; flex-shrink:0;
+}
+.score-name { font-size:.78rem; color:var(--text-secondary); width:52px; flex-shrink:0; }
+.score-track {
+  flex:1; height:8px; background:var(--border); border-radius:4px; overflow:hidden;
+}
+.score-fill {
+  height:100%; border-radius:4px; width:0;
+  transition: width .9s cubic-bezier(.16,1,.3,1);
+}
+.score-val {
+  font-family:'Inter',sans-serif; font-size:.72rem;
+  color:var(--text-muted); width:32px; text-align:right; flex-shrink:0;
+}
+.rank-badge {
+  font-family:'Inter',sans-serif; font-size:.7rem; font-weight:700;
+  width:20px; height:20px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--bg-secondary); color:var(--text-muted); flex-shrink:0;
+}
+.rank-badge.first { background:var(--brand); color:#000; }
+
+/* ── Strengths/Challenges ──── */
+.str-chg {
+  display: grid; gap: 1rem;
+  margin-bottom: 1.25rem;
+  animation: fadeUp .5s .2s ease both;
+}
+.str-card, .chg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+.str-card { border-top: 2px solid var(--axis-F); }
+.chg-card { border-top: 2px solid var(--axis-E); }
+.str-chg-title {
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; font-family:'Inter',sans-serif;
+  margin-bottom: 1rem;
+}
+.str-card .str-chg-title { color:var(--axis-F); }
+.chg-card .str-chg-title { color:var(--axis-E); }
+.str-chg-list { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+.str-chg-list li {
+  display:flex; align-items:flex-start; gap:.5rem;
+  font-size:.9rem; color:var(--text-secondary); line-height:1.6;
+}
+.str-chg-list li::before {
+  flex-shrink:0; margin-top:.15rem; font-size:.75rem;
+}
+.str-card li::before { content:'✓'; color:var(--axis-F); }
+.chg-card li::before { content:'△'; color:var(--axis-E); }
+
+/* ── Share ─────────────────── */
+.share-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  animation: fadeUp .5s .25s ease both;
+}
+.share-section h2 {
+  font-size: .82rem; font-weight:700; letter-spacing:.08em;
+  color:var(--text-muted); text-transform:uppercase; font-family:'Inter',sans-serif;
+  margin-bottom: 1rem;
+}
+.share-btns { display:flex; gap:.75rem; flex-wrap:wrap; }
+.share-btn {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem 1.1rem; border-radius:10px;
+  font-size:.85rem; font-weight:700; cursor:pointer;
+  transition:opacity .2s, transform .15s; border:none;
+  text-decoration:none;
+}
+.share-btn:hover { opacity:.85; transform:translateY(-1px); }
+.share-btn:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+.share-btn-x   { background:#000; border:1px solid #333; color:#fff; }
+.share-btn-line { background:#06C755; color:#fff; }
+.share-btn-copy { background:var(--bg-secondary); border:1px solid var(--border); color:var(--text-secondary); }
+.copy-feedback {
+  font-size:.78rem; color:var(--axis-F);
+  margin-top:.6rem; display:none;
+}
+.copy-feedback.visible { display:block; }
+
+/* ── CTA ───────────────────── */
+.cta-wrap {
+  display:flex; flex-direction:column; gap:.75rem;
+  animation: fadeUp .5s .3s ease both;
+}
+.btn-primary-full {
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  background:var(--brand); color:#000;
+  font-weight:700; font-size:1rem;
+  padding:.9rem 2rem; border-radius:12px;
+  text-decoration:none; border:none; cursor:pointer;
+  transition:background .2s, transform .2s, box-shadow .2s;
+  width:100%;
+}
+.btn-primary-full:hover {
+  background:var(--brand-light);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(201,168,76,.25);
+}
+.btn-primary-full:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+.btn-secondary-full {
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  background:none; border:1px solid var(--border);
+  color:var(--text-secondary); font-size:.9rem;
+  padding:.75rem 2rem; border-radius:12px;
+  text-decoration:none; cursor:pointer; width:100%;
+  transition:border-color .2s, color .2s;
+}
+.btn-secondary-full:hover { border-color:var(--text-secondary); color:var(--text-primary); }
+.btn-secondary-full:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+
+/* ── Responsive ────────────── */
+@media (min-width:640px) {
+  .str-chg { grid-template-columns:1fr 1fr; }
+  .page { padding:2.5rem 2rem 6rem; }
+  .nav { padding:0 2rem; }
+}
+@media (min-width:720px) {
+  .result-hero { padding:3rem 2.5rem; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="メインナビゲーション">
+  <a href="lp.html" class="nav-logo">AI-KNOW <span>/ Psychosofia</span></a>
+  <a href="quiz.html" class="btn-retake">
+    <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 4v5h5M16 16v-5h-5M4.1 9A8 8 0 0116 6M19.9 11A8 8 0 014 14"/></svg>
+    再診断
+  </a>
+</nav>
+
+<main class="page" id="pageContent">
+  <!-- Rendered by JS -->
+</main>
+
+<script>
+// ─── 24 Type definitions ────────────────────────────────────────────────────
+const TYPES = {
+  "WELF":{ name:"ナポレオン", dominant:"W", catchcopy:"意志と情熱で時代を動かす",
+    desc:"強烈な意志力と感情的カリスマを持ち、人を鼓舞しながら目標へ突き進む型。論理的な計画力も備え、感情と理性のバランスで大きな変革を起こす力を持つ。身体感覚は後回しになりやすい。",
+    str:["鋼の意志力と目標への執念","感情で人を動かすカリスマ性","逆境でも自己信念を保てる"],
+    chg:["他者の意見を受け入れにくい","身体疲労のサインを見逃しがち","論理的議論への苦手意識が出ることも"]
+  },
+  "WEFL":{ name:"覇者", dominant:"W", catchcopy:"力強い意志と感情で道を切り拓く",
+    desc:"強い意志と感情的な存在感で人を引きつける型。実践的な行動力も高く、目の前の状況に機敏に対応する。論理的な分析よりも意志と感情で即断・即行する傾向がある。",
+    str:["強い意志と豊かな感情表現の融合","実践的な行動力と決断の速さ","感情的な場での存在感の大きさ"],
+    chg:["論理的な説明・説得が二次的になる","身体的ケアに意識が向きにくい","感情的に突き進み後悔することも"]
+  },
+  "WLEF":{ name:"哲人将軍", dominant:"W", catchcopy:"論理と意志で理想を実現する",
+    desc:"強い意志と論理的思考を組み合わせ、理想の実現に向けて計画的に動く型。感情的共感力も持ち、人の心を理解しながら戦略を遂行する。身体的なニーズが最も後回しになりやすい。",
+    str:["意志と論理の強力な組み合わせ","感情知性で人間関係を円滑に","長期的な戦略立案と実行力"],
+    chg:["身体シグナルを無視しがち","完璧主義から協調が難しくなることも","感情表現より目標優先になりがち"]
+  },
+  "WLFE":{ name:"設計者", dominant:"W", catchcopy:"緻密な計画と意志で世界を形にする",
+    desc:"意志と論理で緻密な計画を立て、実践的に遂行する型。物質的・構造的な問題解決が得意で、感情よりも合理的な判断を優先する。感情表現が最も苦手な側面を持つ。",
+    str:["論理と意志による精密な計画力","物質的・実践的な問題解決力","原則に基づいた一貫した行動"],
+    chg:["感情表現・感情的コミュニケーションが難しい","人の感情ニーズを見落とすことも","計画変更への抵抗感が強い"]
+  },
+  "WFLE":{ name:"武将", dominant:"W", catchcopy:"実践的行動力と意志で目標を掴む",
+    desc:"身体的な直感と強い意志で行動する型。目の前の状況を素早く把握し、論理よりも実践力で解決する。感情よりも行動を優先し、感情表現が最も弱い傾向がある。",
+    str:["身体的行動力と意志の強力な融合","直感的な状況判断と即断力","論理的な戦術把握力"],
+    chg:["感情的な共感・表現が最後回し","感情的なつながりの構築が難しい","論理より行動優先で計画性が欠けることも"]
+  },
+  "WFEL":{ name:"先駆者", dominant:"W", catchcopy:"本能と意志で未来を照らす",
+    desc:"意志と身体感覚の直感で先を読み、感情で人を動かす型。論理的な説明よりも内なる確信と行動で道を切り拓く。独自の感覚と意志力で新しい領域に踏み込んでいく。",
+    str:["直感と意志による先見性","感情的な人間関係の構築力","身体感覚による本質的な判断"],
+    chg:["論理的な説明・説得が苦手","論理を重視する人との衝突","直感と行動を重視しすぎて計画が崩れることも"]
+  },
+  "EWLF":{ name:"情熱家", dominant:"E", catchcopy:"感情と意志で心を揺さぶる",
+    desc:"豊かな感情と強い意志を兼ね備え、人の心を動かしながら変革をもたらす型。論理的な説得力も持ち、感情と理性のバランスで影響力を発揮する。身体的ニーズが後回しになりやすい。",
+    str:["感情的なカリスマと感染力","意志による感情表現の一貫性","論理的な裏付けで説得力を高められる"],
+    chg:["感情に振り回されることがある","身体的限界を無視して突っ走る","強い意志が衝突を生むことも"]
+  },
+  "EWFL":{ name:"詩人", dominant:"E", catchcopy:"感性と意志で美を生み出す",
+    desc:"感情的な豊かさと強い意志、そして身体的な美的感受性を持つ型。創造的表現を通じて美と感動を届ける。論理的な分析よりも感性と意志で行動する。",
+    str:["感情と意志による創造的表現力","身体的な美的感受性の高さ","感情的な深さで人を惹きつける力"],
+    chg:["論理的思考が二次的になりがち","感情で突き進み、論理的ミスを犯すことも","実用性より表現を優先する傾向"]
+  },
+  "ELWF":{ name:"教師", dominant:"E", catchcopy:"共感と論理で人を育てる",
+    desc:"感情的共感力と論理的思考を組み合わせ、人の成長を支援する型。意志的なサポート力も持ち、人への深い関心と論理的な指導を両立する。身体的ニーズを後回しにしやすい。",
+    str:["感情と論理の統合による指導力","意志を持った継続的なサポート力","人の成長への深い関心と洞察"],
+    chg:["身体的ニーズを後回しにしやすい","感情的疲弊を起こしやすい","説得しすぎて相手のペースを乱すことも"]
+  },
+  "ELFW":{ name:"作家", dominant:"E", catchcopy:"感情と論理で魂に届く言葉を紡ぐ",
+    desc:"感情と論理の深い融合で、人の内面に届く表現を生む型。体験的な理解力も高く、感情を精密に言語化する能力を持つ。意志的な主導力は最も後退する傾向がある。",
+    str:["感情と論理の精緻な融合","体験を通じた深い理解と表現力","感情の言語化能力の高さ"],
+    chg:["意志的な行動力・主導力が弱い","内省過多になりやすい","自己表現への固執が生まれることも"]
+  },
+  "EFLW":{ name:"芸術家", dominant:"E", catchcopy:"感情と感覚で唯一の世界を作る",
+    desc:"感情と身体的感受性が融合した、独自の美的世界を持つ型。感覚的な体験を感情と合わせて表現する創造力が高い。論理や意志による目標追求は最も苦手とする。",
+    str:["感情と感覚の鮮烈な融合による創造力","唯一無二の美的感性と世界観","感覚的体験の深い味わい方"],
+    chg:["論理的な説明・計画が苦手","意志的な目標設定・追求が弱い","感情に流されやすい一面"]
+  },
+  "EFWL":{ name:"審美家", dominant:"E", catchcopy:"美と感覚で世界を豊かに彩る",
+    desc:"感情と身体的感覚の洗練された融合で、独自の美学を持って生きる型。意志的な献身力も持つが、論理的な分析は最も後退する。美的体験を深く享受する能力が際立つ。",
+    str:["感情・感覚・意志が織りなす美学","深い体験的享受能力","意志的な美への献身力"],
+    chg:["論理的判断・説明が最も苦手","論理的な人との摩擦が生じやすい","自己耽溺になることも"]
+  },
+  "LEWF":{ name:"ソクラテス", dominant:"L", catchcopy:"真理を問い続ける哲学者",
+    desc:"純粋な論理力と感情的知性を組み合わせ、真理の探求に生涯を捧げる型。意志による思索の継続力も持ち、問いかけを通じて人と知的対話を楽しむ。身体的ニーズが最後回しになりやすい。",
+    str:["純粋な論理力と真理探求心","感情知性による深い人間理解","意志による思索の継続力"],
+    chg:["身体的ニーズを最後回しにする","過分析で行動が遅れることがある","感情表現よりも論理を優先しすぎることも"]
+  },
+  "LEFW":{ name:"分析家", dominant:"L", catchcopy:"論理と感性で本質を見抜く",
+    desc:"論理と感情的洞察を組み合わせ、状況の本質を見抜く型。体験的な検証力も高く、感情と論理の統合で深い理解を得る。意志的な主導力は最も後退する傾向がある。",
+    str:["論理と感情の洗練された統合","体験を通じた深い検証能力","感情的文脈の中での鋭い分析力"],
+    chg:["意志的な行動力・主導力が弱い","身体ケアを後回しにしやすい","決断まで時間がかかることがある"]
+  },
+  "LWEF":{ name:"戦略家", dominant:"L", catchcopy:"論理と意志で勝利を設計する",
+    desc:"論理的な戦略立案と意志の実行力を組み合わせ、目標を合理的に達成する型。感情的な判断力も補完的に持つ。身体的なシグナルは最も後回しになりやすい。",
+    str:["論理的戦略立案と意志による実行力","感情的判断による補完的な洞察","長期的な計画と着実な遂行力"],
+    chg:["身体シグナルを無視しがち","感情表現が二次的になる","合理性に偏り感情的な対話が難しいことも"]
+  },
+  "LWFE":{ name:"建築家", dominant:"L", catchcopy:"論理で複雑さを秩序に変える",
+    desc:"論理と意志で複雑な問題を構造化し、実践的な解決策を生み出す型。物質的・実用的な観点から世界を秩序立てる。感情的な表現は最も後退する傾向がある。",
+    str:["論理と意志による精密な構造化能力","実践的・実用的な問題解決力","意志による品質と完成度の追求"],
+    chg:["感情表現・感情的コミュニケーションが最も苦手","人の感情的ニーズを見落とすことも","変化や感情的状況への適応が難しい"]
+  },
+  "LFEW":{ name:"職人", dominant:"L", catchcopy:"論理と技で完璧を追い求める",
+    desc:"論理と身体的精度を融合させ、高い完成度を追求する型。感情的なケアとの組み合わせで深みを持つ。意志の柔軟性は低く、自分のペースとこだわりを重視する。",
+    str:["論理と身体技術の精緻な融合","感情的な深さと思いやり","完成度への強いこだわりと継続力"],
+    chg:["意志の柔軟性が低く頑固になることも","感情的なやり取りでの衝突","完璧主義から仕事が長引くことも"]
+  },
+  "LFWE":{ name:"技術者", dominant:"L", catchcopy:"精確な論理で現実を変革する",
+    desc:"論理と実践的な精確さで現実に機能的な価値を生み出す型。意志による品質追求と体験的な技術力を持つ。感情的な側面は最も後退し、感情表現が課題になりやすい。",
+    str:["論理と実践の精緻な統合","意志による品質と完成度の追求","体験的な技術力と検証能力"],
+    chg:["感情表現・コミュニケーションが最も苦手","感情的なつながりの構築に課題","実用性優先で感情的側面を軽視することも"]
+  },
+  "FWEL":{ name:"戦士", dominant:"F", catchcopy:"身体と意志で現実と向き合う",
+    desc:"鋭い身体感覚と強い意志で現実を直接的に把握し行動する型。感情的な信念の強さも持ち、論理的な戦術判断力で状況を制御する。身体と意志が最大の武器。",
+    str:["身体的知性と意志の強力な統合","感情的な信念と行動力","論理的な戦術判断力"],
+    chg:["感情を後回しにしがち","論理より行動優先で衝突することも","過剰な身体的負荷を自分に課す傾向"]
+  },
+  "FWLE":{ name:"冒険家", dominant:"F", catchcopy:"感覚と意志で未知へ挑む",
+    desc:"身体的な行動力と意志の強さで、未知の領域に飛び込んでいく型。論理的な状況判断力も持ち、実践的な問題解決を得意とする。感情表現が最も後退する傾向がある。",
+    str:["身体的行動力と意志の強さ","論理的な状況判断と実践的解決力","未知への挑戦を恐れない開拓精神"],
+    chg:["感情表現・感情的なつながりが最も苦手","感情的共感が求められる状況での困難","行動優先で計画性が欠けることも"]
+  },
+  "FELW":{ name:"癒し手", dominant:"F", catchcopy:"身体の共感で心を癒やす",
+    desc:"身体と感情の深い融合で、人の痛みを直感的に感じ取り、ケアを届ける型。論理的なサポートも補完的に持つ。意志的な主導力は最も後退し、自己犠牲になりやすい。",
+    str:["身体と感情による深い直感的共感力","感情的なケアと論理的なサポートの統合","人の苦しみへの鋭い感受性"],
+    chg:["意志的な主導力・自己主張が弱い","感情に流されやすく自己犠牲になりやすい","感覚・感情を優先しすぎることも"]
+  },
+  "FEWL":{ name:"共感者", dominant:"F", catchcopy:"身体で感じる深い思いやり",
+    desc:"身体感覚と感情の鋭い統合で、相手の状態を深く感知し寄り添う型。意志的な献身力も持つが、論理的な分析は最も後退する。身体的共感が最大の強みとなる。",
+    str:["身体感覚と感情の鋭い統合による深い共感","意志的な献身力とケアの継続性","人の身体的・感情的状態への敏感な感知"],
+    chg:["論理的な説明・判断が最も苦手","論理的な人との対話での困難","自己後回しになりやすい傾向"]
+  },
+  "FLWE":{ name:"職人気質", dominant:"F", catchcopy:"身体と論理で精緻を極める",
+    desc:"身体的な精度と論理を融合させ、実用的な美と機能を追求する型。意志的な品質追求と感情的な深みも持つ。高い完成度へのこだわりを体と頭で体現する。",
+    str:["身体的精度と論理の精緻な融合","意志的な品質と完成度の追求","感情的な深みと思いやりの組み合わせ"],
+    chg:["感情表現が最も後退する","コミュニケーションでの感情的な困難","完璧主義からくるストレス"]
+  },
+  "FLEW":{ name:"ナチュラリスト", dominant:"F", catchcopy:"感覚と論理で自然と調和する",
+    desc:"身体感覚と論理的思考で自然の法則を体得し、感情とともに調和して生きる型。意志的な主導力は最も弱く、環境や状況に柔軟に応じる傾向がある。",
+    str:["身体・論理・感情の自然な統合","環境への高い適応性と柔軟性","感覚と論理で世界を深く理解する力"],
+    chg:["意志的な主導力・自己主張が最も弱い","流されやすく優先順位が定まりにくい","自己の方向性を見失うことも"]
+  }
+};
+
+const AXIS_LABELS = { W:"意志", E:"感情", L:"論理", F:"身体" };
+const AXIS_COLORS = { W:"var(--axis-W)", E:"var(--axis-E)", L:"var(--axis-L)", F:"var(--axis-F)" };
+const AXIS_MUTED  = { W:"var(--axis-W-muted)", E:"var(--axis-E-muted)", L:"var(--axis-L-muted)", F:"var(--axis-F-muted)" };
+const RESULT_KEY  = 'aiknow_psychosofia_result';
+
+// ─── Bootstrap ──────────────────────────────────────────────────────────────
+function init() {
+  const params  = new URLSearchParams(location.search);
+  const urlType = params.get('type')?.toUpperCase();
+
+  let typeCode  = null;
+  let scores    = null;
+  let isBorder  = false;
+
+  if (urlType && TYPES[urlType]) {
+    typeCode = urlType;
+    // try to load scores from storage
+    try {
+      const saved = JSON.parse(localStorage.getItem(RESULT_KEY) || 'null');
+      if (saved?.typeCode === typeCode) { scores = saved.scores; isBorder = saved.isBorder; }
+    } catch(e) {}
+  } else {
+    // Try storage
+    try {
+      const saved = JSON.parse(localStorage.getItem(RESULT_KEY) || 'null');
+      if (saved?.typeCode && TYPES[saved.typeCode]) {
+        typeCode = saved.typeCode; scores = saved.scores; isBorder = saved.isBorder;
+      }
+    } catch(e) {}
+  }
+
+  if (!typeCode) { renderNotFound(); return; }
+  renderResult(typeCode, scores, isBorder);
+}
+
+// ─── Render ──────────────────────────────────────────────────────────────────
+function renderResult(code, scores, isBorder) {
+  const t = TYPES[code];
+  const dominant = t.dominant;
+  const order = code.split('');
+
+  // CSS variables for this type's axis color
+  document.documentElement.style.setProperty('--type-color', `var(--axis-${dominant})`);
+  document.documentElement.style.setProperty('--type-muted', AXIS_MUTED[dominant]);
+
+  // OGP meta update
+  const shareText = `私はサイコソフィア診断で「${t.name}（${code}）」でした！${t.catchcopy}`;
+  document.getElementById('metaDesc').content = shareText;
+  document.getElementById('ogTitle').content  = `${t.name}（${code}）| サイコソフィア診断 | AI-KNOW`;
+  document.getElementById('ogDesc').content   = shareText;
+  document.title = `${t.name}（${code}）| サイコソフィア診断`;
+
+  const page = document.getElementById('pageContent');
+  page.innerHTML = buildHTML(code, t, order, scores, isBorder);
+
+  // Animate score bars after paint
+  if (scores) {
+    const maxScore = Math.max(...Object.values(scores));
+    requestAnimationFrame(() => setTimeout(() => {
+      order.forEach((axis, i) => {
+        const bar = document.getElementById('scoreBar_' + axis);
+        if (bar) bar.style.width = ((scores[axis] / maxScore) * 100) + '%';
+      });
+    }, 100));
+  }
+
+  // Wire up share & copy
+  wireShare(code, t, shareText);
+}
+
+function buildHTML(code, t, order, scores, isBorder) {
+  const dominant = t.dominant;
+
+  // Function order chips
+  const funcOrder = order.map((ax, i) => `
+    <div class="func-rank">
+      <span class="func-rank-num">${i+1}位</span>
+      <span class="func-badge ${ax}">${AXIS_LABELS[ax]}</span>
+    </div>
+    ${i < 3 ? '<span class="func-arrow" aria-hidden="true">›</span>' : ''}
+  `).join('');
+
+  // Score section (only if scores available)
+  const scoreHTML = scores ? (() => {
+    const sorted = [...order].sort((a,b) => scores[b]-scores[a]);
+    const maxScore = Math.max(...Object.values(scores));
+    const rows = order.map(axis => {
+      const rank = sorted.indexOf(axis) + 1;
+      const pct  = Math.round((scores[axis] / maxScore) * 100);
+      return `
+        <div class="score-row">
+          <span class="score-axis-label" style="color:${AXIS_COLORS[axis]}">${axis}</span>
+          <span class="score-name">${AXIS_LABELS[axis]}</span>
+          <div class="score-track"><div class="score-fill" id="scoreBar_${axis}" style="background:${AXIS_COLORS[axis]}"></div></div>
+          <span class="score-val">${Math.round(scores[axis])}</span>
+          <span class="rank-badge${rank===1?' first':''}">${rank}</span>
+        </div>`;
+    }).join('');
+    return `
+      <section class="score-section" aria-label="スコア詳細">
+        <h2>4軸スコア</h2>${rows}
+      </section>`;
+  })() : '';
+
+  // Border notice
+  const borderHTML = isBorder ? `
+    <div class="border-notice visible" role="alert">
+      <strong>⚠ 境界タイプの可能性があります</strong>
+      上位2軸のスコア差が小さいため、隣接タイプの側面も持っている可能性があります。
+    </div>` : '';
+
+  // Strengths / Challenges
+  const strItems = t.str.map(s => `<li>${s}</li>`).join('');
+  const chgItems = t.chg.map(c => `<li>${c}</li>`).join('');
+
+  return `
+    <section class="result-hero" aria-labelledby="typeName">
+      <div class="type-code-big" aria-label="タイプコード ${code}">${code}</div>
+      <h1 class="type-name-big" id="typeName">${t.name}</h1>
+      <p class="type-catchcopy">${t.catchcopy}</p>
+      <div class="func-order" aria-label="機能優先順位">${funcOrder}</div>
+      <p class="type-desc">${t.desc}</p>
+    </section>
+
+    ${borderHTML}
+    ${scoreHTML}
+
+    <div class="str-chg" role="region" aria-label="強みと課題">
+      <div class="str-card">
+        <h2 class="str-chg-title">強み</h2>
+        <ul class="str-chg-list" aria-label="強み一覧">${strItems}</ul>
+      </div>
+      <div class="chg-card">
+        <h2 class="str-chg-title">成長課題</h2>
+        <ul class="str-chg-list" aria-label="成長課題一覧">${chgItems}</ul>
+      </div>
+    </div>
+
+    <section class="share-section" aria-label="結果をシェア">
+      <h2>結果をシェア</h2>
+      <div class="share-btns">
+        <button class="share-btn share-btn-x" id="shareX" aria-label="Xでシェア">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Xでシェア
+        </button>
+        <button class="share-btn share-btn-line" id="shareLINE" aria-label="LINEでシェア">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.04 2 11.05c0 3.46 2.03 6.49 5.05 8.22.18.1.28.3.28.5l-.06 1.84c-.02.45.48.73.87.5l2.05-1.2c.14-.08.3-.1.46-.06.76.2 1.55.3 2.35.3 5.52 0 10-4.04 10-9.05S17.52 2 12 2z"/></svg>
+          LINEでシェア
+        </button>
+        <button class="share-btn share-btn-copy" id="shareCopy" aria-label="リンクをコピー">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          リンクをコピー
+        </button>
+      </div>
+      <p class="copy-feedback" id="copyFeedback" role="status" aria-live="polite">✓ コピーしました</p>
+    </section>
+
+    <div class="cta-wrap">
+      <a href="quiz.html" class="btn-primary-full">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 4v5h5M16 16v-5h-5M4.1 9A8 8 0 0116 6M19.9 11A8 8 0 014 14"/></svg>
+        もう一度診断する
+      </a>
+      <a href="lp.html" class="btn-secondary-full">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 2l8 8-8 8M2 10h16"/></svg>
+        診断ページへ戻る
+      </a>
+    </div>`;
+}
+
+function renderNotFound() {
+  document.getElementById('pageContent').innerHTML = `
+    <div class="not-found" role="main">
+      <h1>診断結果が見つかりません</h1>
+      <p>まず診断を完了してください。</p>
+      <a href="quiz.html" class="btn-primary-full" style="max-width:280px;margin:0 auto;">診断を始める</a>
+    </div>`;
+}
+
+// ─── Share ───────────────────────────────────────────────────────────────────
+function wireShare(code, t, shareText) {
+  const url      = window.location.origin + window.location.pathname + `?type=${code}`;
+  const tweetTxt = `${shareText} #サイコソフィア診断 #AIKNOW`;
+  const lineTxt  = `${shareText}\n${url}`;
+
+  document.getElementById('shareX')?.addEventListener('click', () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetTxt)}&url=${encodeURIComponent(url)}`, '_blank', 'noopener');
+  });
+  document.getElementById('shareLINE')?.addEventListener('click', () => {
+    window.open(`https://line.me/R/msg/text/?${encodeURIComponent(lineTxt)}`, '_blank', 'noopener');
+  });
+  document.getElementById('shareCopy')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch(e) {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    const fb = document.getElementById('copyFeedback');
+    fb.classList.add('visible');
+    setTimeout(() => fb.classList.remove('visible'), 2500);
+  });
+}
+
+init();
+</script>
+</body>
+</html>
